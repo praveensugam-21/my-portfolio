@@ -3,16 +3,23 @@ import { motion } from "framer-motion";
 
 const certificateData = [
   {
-    title: "React - The Complete Guide",
-    issuer: "Udemy",
-    year: 2022,
-    link: "https://www.udemy.com/certificate/UC-12345/",
+    title: "Google Cloud Career Launchpad DataAnalytics Track",
+    issuer: "Google Cloud Skill Boost",
+    year: 2025,
+    link: "https://www.linkedin.com/in/praveen-rathinam-p/overlay/1754449963144/single-media-viewer/?profileId=ACoAAE1oDRYB9K5HbUDyngtJNwD8nr9_uG3mwBY",
   },
   {
-    title: "JavaScript Algorithms and Data Structures",
-    issuer: "freeCodeCamp",
-    year: 2021,
-    link: "https://www.freecodecamp.org/certification/johndoe/javascript-algorithms",
+    title: "Intro to Git and GitHub",
+    issuer: "Le Wagon",
+    year: 2025,
+    link: "https://www.linkedin.com/in/praveen-rathinam-p/overlay/1752345006953/single-media-viewer/?profileId=ACoAAE1oDRYB9K5HbUDyngtJNwD8nr9_uG3mwBY",
+  },
+
+  {
+    title: "MongoDB",
+    issuer: "Udemy",
+    year: 2024,
+    link: "https://www.linkedin.com/in/praveen-rathinam-p/details/certifications/1753627922179/single-media-viewer/?profileId=ACoAAE1oDRYB9K5HbUDyngtJNwD8nr9_uG3mwBY",
   },
 ];
 

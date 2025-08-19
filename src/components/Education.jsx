@@ -1,12 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { details } from "framer-motion/client";
 
 const educationData = [
   {
-    degree: "B.Sc. Computer Science",
-    institution: "State University",
-    duration: "2015 - 2019",
-    details: "Graduated with First Class Honors.",
+    degree: "Higher Secondary",
+    institution: "SRV Matriculation Higher Secondary School",
+    duration: "2022-2023",
+    details: "Percentage: 93.33% ",
+  },
+  {
+    degree: "B.Tech Information Technology",
+    institution: "Sri Sivasubramaniya Nadar College of Engineering",
+    duration: "2023 - 2027",
+    details: "CGPA - 7.71 ",
   },
 ];
 

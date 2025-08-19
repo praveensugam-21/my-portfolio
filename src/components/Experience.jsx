@@ -3,16 +3,10 @@ import { motion } from "framer-motion";
 
 const experienceData = [
   {
-    role: "Frontend Developer",
-    company: "Tech Solutions Inc.",
-    duration: "Jan 2021 - Present",
-    details: "Building responsive and accessible React applications.",
-  },
-  {
-    role: "Software Engineer",
-    company: "Innovatech Labs",
-    duration: "Jun 2019 - Dec 2020",
-    details: "Worked on full-stack apps using MERN stack and cloud deployment.",
+    role: "Intern",
+    company: "Vteach - Tindivanam ",
+    duration: "15 days - June 2025",
+    details:"AI & Computer Vision – Developed a mini project and gained understanding of TensorFlow, Keras, PyTorch, YOLOv5, and Matplotlib.",
   },
 ];
 
