@@ -12,7 +12,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.name && form.email && form.message) {
-      // Normally you'd send form data to API or email service.
+      // Normally you send form data to API or email service.
       setSent(true);
       setForm({ name: "", email: "", message: "" });
     } else {
