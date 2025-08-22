@@ -75,6 +75,7 @@ button.primary-btn:hover {
   transition: transform 0.3s ease;
 }
 
+/* Card Hover */
 .card:hover {
   transform: translateY(-8px) scale(1.03);
   box-shadow: 0 12px 30px rgb(59 130 246 / 0.5);
