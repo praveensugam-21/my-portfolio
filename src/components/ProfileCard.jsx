@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg, #00f2fe33 0%, #9b51e044 100%)';
 

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, AlertCircle } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 import { useInView } from '../hooks/useInView';
 import { handleTiltMove, handleTiltLeave } from '../utils/tilt';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import Silk from './Silk';
 
 export default function Contact() {
   const { personalInfo } = resumeData;
@@ -10,6 +12,7 @@ export default function Contact() {
   const [focusedField, setFocusedField] = useState(null);
   const [formStatus, setFormStatus] = useState('idle'); // idle, success, error
   const [gridRef, gridInView] = useInView();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +40,15 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section contact-section">
+      <div className="silk-backdrop">
+        {!prefersReducedMotion && (
+          <Suspense fallback={null}>
+            <Silk speed={4} scale={0.9} color="#2a1f52" noiseIntensity={1.2} rotation={0.15} />
+          </Suspense>
+        )}
+        <div className="silk-scrim"></div>
+      </div>
+
       <div className="container">
         <div className="section-header">
           <span className="section-subtitle">GET IN TOUCH</span>
@@ -184,6 +196,34 @@ export default function Contact() {
       <style>{`
         .contact-section {
           position: relative;
+          overflow: hidden;
+        }
+
+        .silk-backdrop {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          opacity: 0.4;
+        }
+
+        .silk-backdrop canvas {
+          display: block;
+          width: 100% !important;
+          height: 100% !important;
+        }
+
+        .silk-scrim {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 50% 40%, transparent 0%, rgba(4, 7, 19, 0.55) 65%, rgba(4, 7, 19, 0.92) 100%),
+            linear-gradient(to bottom, rgba(4, 7, 19, 0.6) 0%, transparent 15%, transparent 85%, rgba(4, 7, 19, 0.6) 100%);
+        }
+
+        .contact-section .container {
+          position: relative;
+          z-index: 1;
         }
 
         .contact-grid {

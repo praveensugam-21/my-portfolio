@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Award, GraduationCap, Globe2, X, Maximize2 } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 import { useInView } from '../hooks/useInView';
@@ -7,7 +7,10 @@ import { handleTiltMove, handleTiltLeave } from '../utils/tilt';
 export default function Certifications() {
   const { education, certifications, languages } = resumeData;
   const [lightboxCert, setLightboxCert] = useState(null);
+  const [flippedIndex, setFlippedIndex] = useState(null);
   const [sectionRef, sectionInView] = useInView();
+
+  const toggleFlip = (idx) => setFlippedIndex(prev => (prev === idx ? null : idx));
 
   return (
     <section id="credentials" className={`section credentials-section ${sectionInView ? 'in-view' : ''}`} ref={sectionRef}>
@@ -59,13 +62,24 @@ export default function Certifications() {
         </h3>
 
         <div className="certs-ticker-wrap">
-          <div className="certs-ticker-row">
+          <div className={`certs-ticker-row ${flippedIndex !== null ? 'is-interacting' : ''}`}>
             {[...certifications, ...certifications].map((cert, idx) => (
               <div key={`${cert.name}-${idx}`} className="cert-card-float" style={{ '--i': idx % certifications.length }}>
                 <div
-                  className="cert-card-flip"
+                  className={`cert-card-flip ${flippedIndex === idx ? 'is-flipped' : ''}`}
                   onMouseMove={(e) => handleTiltMove(e, { max: 6, scale: 1.02 })}
                   onMouseLeave={handleTiltLeave}
+                  onClick={() => toggleFlip(idx)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      toggleFlip(idx);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={flippedIndex === idx}
+                  aria-label={`${cert.name} — show more details`}
                 >
                   <div className="cert-card-inner">
                     {/* Front: always-visible, fully legible image + core facts */}
@@ -83,6 +97,7 @@ export default function Certifications() {
                             className="cert-zoom-btn"
                             onClick={(e) => { e.stopPropagation(); setLightboxCert(cert); }}
                             title="View full certificate"
+                            aria-label={`View full certificate: ${cert.name}`}
                           >
                             <Maximize2 size={14} />
                           </button>
@@ -301,7 +316,8 @@ export default function Certifications() {
           animation: certs-scroll 48s linear infinite;
         }
 
-        .certs-ticker-row:hover {
+        .certs-ticker-row:hover,
+        .certs-ticker-row.is-interacting {
           animation-play-state: paused;
         }
 
@@ -328,6 +344,13 @@ export default function Certifications() {
           perspective: 1400px;
           transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(var(--tilt-scale, 1));
           transition: transform 0.15s ease-out;
+          cursor: pointer;
+        }
+
+        .cert-card-flip:focus-visible {
+          outline: 2px solid var(--color-primary);
+          outline-offset: 4px;
+          border-radius: 16px;
         }
 
         .cert-card-inner {
@@ -340,7 +363,10 @@ export default function Certifications() {
           border-radius: 16px;
         }
 
-        .cert-card-flip:hover .cert-card-inner {
+        /* Hover flips it on desktop; tap/click/Enter toggles .is-flipped for
+           touch and keyboard users, who can't rely on :hover. */
+        .cert-card-flip:hover .cert-card-inner,
+        .cert-card-flip.is-flipped .cert-card-inner {
           transform: rotateY(180deg);
         }
 

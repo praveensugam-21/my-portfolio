@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FolderGit2, X, BookOpen } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
 import { resumeData } from '../data/resumeData';
@@ -14,7 +14,7 @@ export default function Projects() {
   const projectVisuals = {
     'EVA Homes – Broker-Mediated Real Estate Marketplace': (
       <div className="project-visual eva-visual">
-        <svg viewBox="0 0 100 100" className="visual-svg">
+        <svg viewBox="0 0 100 100" className="visual-svg" aria-hidden="true">
           <path d="M 50,20 L 80,42 L 80,80 L 20,80 L 20,42 Z" stroke="rgba(0, 242, 254, 0.2)" strokeWidth="1.5" fill="none" />
           <path d="M 50,20 L 80,42 L 20,42 Z" stroke="rgba(155, 81, 224, 0.25)" strokeWidth="1.5" fill="none" />
           <rect x="43" y="60" width="14" height="20" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" fill="none" />
@@ -29,7 +29,7 @@ export default function Projects() {
     ),
     'IRIS AI – Secure AI Document Intelligence Platform': (
       <div className="project-visual iris-visual">
-        <svg viewBox="0 0 100 100" className="visual-svg">
+        <svg viewBox="0 0 100 100" className="visual-svg" aria-hidden="true">
           <path d="M 32,20 L 60,20 L 72,32 L 72,80 L 32,80 Z" stroke="rgba(0, 242, 254, 0.18)" strokeWidth="1.5" fill="none" />
           <path d="M 60,20 L 60,32 L 72,32" stroke="rgba(0, 242, 254, 0.25)" strokeWidth="1.5" fill="none" />
           <line x1="40" y1="42" x2="64" y2="42" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
@@ -47,7 +47,7 @@ export default function Projects() {
     ),
     'Higher Studies Portal': (
       <div className="project-visual hs-portal-visual">
-        <svg viewBox="0 0 100 100" className="visual-svg">
+        <svg viewBox="0 0 100 100" className="visual-svg" aria-hidden="true">
           <circle cx="50" cy="50" r="35" stroke="rgba(0, 242, 254, 0.15)" strokeWidth="1" fill="none" />
           <circle cx="50" cy="50" r="20" stroke="rgba(0, 242, 254, 0.25)" strokeWidth="1.5" fill="none" strokeDasharray="5 3" />
           <path d="M 25,50 L 50,25 L 75,50 L 50,75 Z" stroke="rgba(155, 81, 224, 0.2)" strokeWidth="1" fill="none" />
@@ -64,7 +64,7 @@ export default function Projects() {
     ),
     'AI Powered Retinal Disease Detection': (
       <div className="project-visual retinal-visual">
-        <svg viewBox="0 0 100 100" className="visual-svg">
+        <svg viewBox="0 0 100 100" className="visual-svg" aria-hidden="true">
           <circle cx="50" cy="50" r="30" stroke="rgba(0, 242, 254, 0.15)" strokeWidth="1" fill="none" />
           <circle cx="50" cy="50" r="10" stroke="rgba(0, 242, 254, 0.3)" strokeWidth="1" fill="none" />
           {/* Target reticle scan lines */}
@@ -129,7 +129,7 @@ export default function Projects() {
 
                     {proj.links?.github && (
                       <div className="project-links">
-                        <a href={proj.links.github} target="_blank" rel="noopener noreferrer" className="icon-btn-link" title="GitHub Source">
+                        <a href={proj.links.github} target="_blank" rel="noopener noreferrer" className="icon-btn-link" title="GitHub Source" aria-label={`View ${proj.title} source on GitHub`}>
                           <GithubIcon size={16} />
                         </a>
                       </div>
@@ -146,9 +146,10 @@ export default function Projects() {
       {selectedProject && (
         <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
           <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()}>
-            <button 
+            <button
               className="modal-close-btn"
               onClick={() => setSelectedProject(null)}
+              aria-label="Close project details"
             >
               <X size={20} />
             </button>

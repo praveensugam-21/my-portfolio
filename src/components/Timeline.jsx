@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Calendar, MapPin, Briefcase, Award, X } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
 import { resumeData } from '../data/resumeData';

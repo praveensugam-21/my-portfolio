@@ -96,10 +96,11 @@ export default function Navbar() {
 
         {/* Mobile Button */}
         <div className="navbar-actions">
-          <button 
+          <button
             className="mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -225,7 +226,12 @@ export default function Navbar() {
           border: none;
           color: var(--text-primary);
           cursor: pointer;
-          outline: none;
+          border-radius: 6px;
+        }
+
+        .mobile-menu-btn:focus-visible {
+          outline: 2px solid var(--color-primary);
+          outline-offset: 3px;
         }
 
         /* Mobile menu container */

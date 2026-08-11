@@ -9,7 +9,7 @@
   
   --text-primary: #f3f4f6;
   --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  --text-muted: #767c89; /* WCAG AA 4.5:1 on --bg-darker (was #6b7280 at 4.13:1) */
 
   /* Accent Colors (Neon glowing theme) */
   --color-primary: #00f2fe; /* Electric Cyan */
@@ -72,6 +72,20 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
+}
+
+/* Baseline visible focus ring for keyboard navigation, site-wide. Only
+   fires for :focus-visible (keyboard/programmatic focus), so it never
+   shows up as a distracting ring on mouse clicks. Components can still
+   override with their own :focus-visible rule for a tighter fit. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* Base layouts */
@@ -314,5 +328,20 @@ body {
   100% {
     transform: scale(1.03);
     opacity: 0;
+  }
+}
+
+/* Respect OS-level "reduce motion" setting: collapse every CSS animation/
+   transition to effectively instant across the whole site. JS-driven motion
+   (WebGL scenes, canvas particles) is handled separately per-component via
+   the usePrefersReducedMotion hook, since this media query can't reach them. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

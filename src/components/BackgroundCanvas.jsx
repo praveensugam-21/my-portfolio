@@ -149,12 +149,20 @@ export default function BackgroundCanvas() {
       mouse.y = null;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Initial setup
     resizeCanvas();
-    animate();
+
+    if (prefersReducedMotion) {
+      // Draw one static frame instead of a continuous drift/parallax loop.
+      particles.forEach(p => p.draw());
+      connectParticles();
+    } else {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseleave', handleMouseLeave);
+      animate();
+    }
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);

@@ -1,13 +1,15 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Mail, FileText, ArrowDown } from 'lucide-react';
 import { LinkedinIcon } from './SocialIcons';
 import { resumeData } from '../data/resumeData';
 import praveenImg from '../assets/praveen.jpg';
 import Scene3D from './Scene3D';
 import ProfileCard from './ProfileCard';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 export default function Hero() {
   const { personalInfo } = resumeData;
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const handleScrollToContact = (e) => {
     e.preventDefault();
@@ -63,25 +65,27 @@ export default function Hero() {
           </div>
 
           <div className="hero-socials">
-            <a href={`mailto:${personalInfo.email}`} className="social-link" title="Email Me">
+            <a href={`mailto:${personalInfo.email}`} className="social-link" title="Email Me" aria-label="Email Praveen">
               <Mail size={20} />
             </a>
-            <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn Profile">
+            <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn Profile" aria-label="Praveen's LinkedIn profile">
               <LinkedinIcon size={20} />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-link" title="GitHub Profile">
-              <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>git</span>
+            <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="social-link" title="GitHub Profile" aria-label="Praveen's GitHub profile">
+              <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }} aria-hidden="true">git</span>
             </a>
           </div>
         </div>
 
         {/* Right Column: Profile Image & Stats */}
         <div className="hero-right-panel">
-          <div className="scene3d-layer">
-            <Suspense fallback={null}>
-              <Scene3D />
-            </Suspense>
-          </div>
+          {!prefersReducedMotion && (
+            <div className="scene3d-layer">
+              <Suspense fallback={null}>
+                <Scene3D />
+              </Suspense>
+            </div>
+          )}
 
           <div className="profile-card-slot">
             <ProfileCard
