@@ -3,17 +3,8 @@ import { Mail, FileText, ArrowDown } from 'lucide-react';
 import { LinkedinIcon } from './SocialIcons';
 import { resumeData } from '../data/resumeData';
 import praveenImg from '../assets/praveen.jpg';
-import { handleTiltMove, handleTiltLeave } from '../utils/tilt';
 import Scene3D from './Scene3D';
-
-const BULB_COLORS = ['#fbbf24', '#fff3d6', '#fbbf24', '#fff3d6', '#ffe9a8'];
-const BULB_COUNT = 16;
-const LIGHT_BULBS = Array.from({ length: BULB_COUNT }, (_, i) => ({
-  angle: (360 / BULB_COUNT) * i,
-  color: BULB_COLORS[i % BULB_COLORS.length],
-  size: i % 4 === 0 ? 6.5 : 4.5,
-  delay: (i * 0.31) % 4.4
-}));
+import ProfileCard from './ProfileCard';
 
 export default function Hero() {
   const { personalInfo } = resumeData;
@@ -92,33 +83,23 @@ export default function Hero() {
             </Suspense>
           </div>
 
-          <div
-            className="profile-image-wrapper"
-            onMouseMove={(e) => handleTiltMove(e, { max: 12, scale: 1.04 })}
-            onMouseLeave={handleTiltLeave}
-          >
-            <div className="ambient-halo"></div>
-            <div className="fairy-lights-ring">
-              {LIGHT_BULBS.map((bulb, i) => (
-                <span
-                  key={i}
-                  className="light-bulb"
-                  style={{
-                    '--angle': `${bulb.angle}deg`,
-                    '--bulb-color': bulb.color,
-                    '--bulb-size': `${bulb.size}px`,
-                    animationDelay: `${bulb.delay}s`
-                  }}
-                ></span>
-              ))}
-            </div>
-            <div className="profile-image-container glass-panel">
-              <img src={praveenImg} alt={personalInfo.name} className="profile-image" />
-              <div className="profile-image-glare"></div>
-            </div>
-            <div className="profile-glow"></div>
+          <div className="profile-card-slot">
+            <ProfileCard
+              avatarUrl={praveenImg}
+              name={personalInfo.name}
+              title={personalInfo.title}
+              handle={personalInfo.github.split('/').pop()}
+              status="Open to opportunities"
+              contactText="Contact Me"
+              showUserInfo={true}
+              enableTilt={true}
+              enableMobileTilt={false}
+              behindGlowEnabled={true}
+              innerGradient="linear-gradient(145deg, #00f2fe33 0%, #9b51e044 100%)"
+              onContactClick={handleScrollToContact}
+            />
           </div>
-          
+
           <div className="stats-grid">
             {personalInfo.stats.map((stat, index) => (
               <div 
@@ -288,128 +269,10 @@ export default function Hero() {
           opacity: 0.85;
         }
 
-        .profile-image-wrapper {
+        .profile-card-slot {
           position: relative;
           z-index: 1;
           margin-bottom: 2.5rem;
-          perspective: 1000px;
-        }
-
-        .profile-image-container {
-          width: 250px;
-          height: 250px;
-          border-radius: 50%;
-          overflow: hidden;
-          border: 2px solid rgba(0, 242, 254, 0.2);
-          box-shadow: var(--shadow-neon);
-          position: relative;
-          z-index: 2;
-          transform-style: preserve-3d;
-          transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(var(--tilt-scale, 1));
-          transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.12s ease-out;
-        }
-
-        .profile-image-container:hover {
-          border-color: var(--color-primary);
-          box-shadow: var(--shadow-neon-hover);
-        }
-
-        .profile-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: 50% 15%; /* Custom focal position for singing photo */
-        }
-
-        .profile-image-glare {
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.22), transparent 55%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-
-        .profile-image-wrapper:hover .profile-image-glare {
-          opacity: 1;
-        }
-
-        .profile-glow {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          width: 230px;
-          height: 230px;
-          border-radius: 50%;
-          background: radial-gradient(circle, var(--color-primary) 0%, var(--color-secondary) 100%);
-          filter: blur(25px);
-          opacity: 0.15;
-          z-index: 1;
-          pointer-events: none;
-        }
-
-        /* Premium fairy-light halo around the profile photo */
-        .ambient-halo {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 320px;
-          height: 320px;
-          transform: translate(-50%, -50%);
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(251, 191, 36, 0.16) 0%, rgba(251, 191, 36, 0) 68%);
-          filter: blur(18px);
-          z-index: 1;
-          pointer-events: none;
-          animation: halo-breathe 5s ease-in-out infinite;
-        }
-
-        @keyframes halo-breathe {
-          0%, 100% { opacity: 0.65; transform: translate(-50%, -50%) scale(0.97); }
-          50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
-        }
-
-        .fairy-lights-ring {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 0;
-          height: 0;
-          z-index: 4;
-          pointer-events: none;
-          animation: ring-rotate 60s linear infinite;
-        }
-
-        @keyframes ring-rotate {
-          from { transform: translate(-50%, -50%) rotate(0deg); }
-          to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        .light-bulb {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: var(--bulb-size);
-          height: var(--bulb-size);
-          margin: calc(var(--bulb-size) * -0.5) 0 0 calc(var(--bulb-size) * -0.5);
-          border-radius: 50%;
-          background: radial-gradient(circle at 35% 30%, #fffdf5 0%, var(--bulb-color) 60%, transparent 100%);
-          box-shadow:
-            0 0 3px 1px var(--bulb-color),
-            0 0 9px 3px rgba(251, 191, 36, 0.35);
-          transform: rotate(var(--angle)) translateY(-138px);
-          animation: bulb-twinkle 4.2s ease-in-out infinite;
-        }
-
-        @keyframes bulb-twinkle {
-          0%, 100% {
-            opacity: 0.55;
-            filter: brightness(0.85);
-          }
-          50% {
-            opacity: 1;
-            filter: brightness(1.2);
-          }
         }
 
         .stats-grid {
