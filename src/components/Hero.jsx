@@ -79,29 +79,35 @@ export default function Hero() {
 
         {/* Right Column: Profile Image & Stats */}
         <div className="hero-right-panel">
-          {!prefersReducedMotion && (
-            <div className="scene3d-layer">
-              <Suspense fallback={null}>
-                <Scene3D />
-              </Suspense>
-            </div>
-          )}
+          {/* scene3d-layer centers on THIS wrapper, not hero-right-panel —
+              keeping it scoped to just the card's footprint so it can't
+              balloon out over the stats grid once the layout stacks
+              vertically on narrower screens. */}
+          <div className="profile-visual-wrap">
+            {!prefersReducedMotion && (
+              <div className="scene3d-layer">
+                <Suspense fallback={null}>
+                  <Scene3D />
+                </Suspense>
+              </div>
+            )}
 
-          <div className="profile-card-slot">
-            <ProfileCard
-              avatarUrl={praveenImg}
-              name={personalInfo.name}
-              title={personalInfo.title}
-              handle={personalInfo.github.split('/').pop()}
-              status="Open to opportunities"
-              contactText="Contact Me"
-              showUserInfo={true}
-              enableTilt={true}
-              enableMobileTilt={false}
-              behindGlowEnabled={true}
-              innerGradient="linear-gradient(145deg, #00f2fe33 0%, #9b51e044 100%)"
-              onContactClick={handleScrollToContact}
-            />
+            <div className="profile-card-slot">
+              <ProfileCard
+                avatarUrl={praveenImg}
+                name={personalInfo.name}
+                title={personalInfo.title}
+                handle={personalInfo.github.split('/').pop()}
+                status="Open to work"
+                contactText="Contact Me"
+                showUserInfo={true}
+                enableTilt={true}
+                enableMobileTilt={false}
+                behindGlowEnabled={true}
+                innerGradient="linear-gradient(145deg, #00f2fe33 0%, #9b51e044 100%)"
+                onContactClick={handleScrollToContact}
+              />
+            </div>
           </div>
 
           <div className="stats-grid">
@@ -258,16 +264,22 @@ export default function Hero() {
           display: flex;
           flex-direction: column;
           align-items: center;
+        }
+
+        .profile-visual-wrap {
           position: relative;
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2.5rem;
         }
 
         .scene3d-layer {
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 560px;
-          height: 560px;
-          transform: translate(-50%, -55%);
+          width: 480px;
+          height: 480px;
+          transform: translate(-50%, -50%);
           z-index: 0;
           pointer-events: none;
           opacity: 0.85;
@@ -276,7 +288,6 @@ export default function Hero() {
         .profile-card-slot {
           position: relative;
           z-index: 1;
-          margin-bottom: 2.5rem;
         }
 
         .stats-grid {
@@ -392,8 +403,8 @@ export default function Hero() {
             flex-direction: column;
           }
           .scene3d-layer {
-            width: 360px;
-            height: 360px;
+            width: 320px;
+            height: 320px;
           }
         }
       `}</style>

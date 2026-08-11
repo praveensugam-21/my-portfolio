@@ -116,7 +116,7 @@ export default function ProfileCard({
                 <span className="pc-handle">@{handle}</span>
                 <span className="pc-status">
                   <span className="pc-status-dot"></span>
-                  {status}
+                  <span className="pc-status-text">{status}</span>
                 </span>
               </div>
             </div>
@@ -241,7 +241,7 @@ export default function ProfileCard({
           position: absolute;
           left: 1.25rem;
           right: 1.25rem;
-          bottom: 4.75rem;
+          bottom: 5.5rem;
           z-index: 5;
           text-align: left;
           pointer-events: none;
@@ -254,6 +254,9 @@ export default function ProfileCard({
           color: #fff;
           text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
           margin-bottom: 0.2rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .pc-title {
@@ -261,6 +264,9 @@ export default function ProfileCard({
           font-size: 0.75rem;
           color: rgba(255, 255, 255, 0.85);
           text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .pc-info {
@@ -318,6 +324,16 @@ export default function ProfileCard({
           gap: 0.3rem;
           font-size: 0.65rem;
           color: var(--text-muted);
+          min-width: 0;
+          max-width: 100%;
+        }
+
+        .pc-status-text {
+          display: inline-block;
+          min-width: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .pc-status-dot {
