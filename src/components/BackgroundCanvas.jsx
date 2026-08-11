@@ -183,7 +183,8 @@ export default function BackgroundCanvas() {
         height: '100vh',
         zIndex: -1,
         pointerEvents: 'none',
-        backgroundColor: '#040713',
+        // No opaque fill here — left transparent on purpose so the
+        // AuroraBackground color blobs (z-index -2) show through behind it.
       }}
     />
   );

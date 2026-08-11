@@ -437,14 +437,21 @@ export default function Projects() {
         .modal-content {
           width: 100%;
           max-width: 850px;
-          background: #090e21;
+          background:
+            linear-gradient(155deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 45%, rgba(255, 255, 255, 0) 100%),
+            rgba(9, 14, 33, 0.82);
+          backdrop-filter: blur(22px) saturate(150%);
+          -webkit-backdrop-filter: blur(22px) saturate(150%);
           border: 1px solid rgba(0, 242, 254, 0.15);
           border-radius: 20px;
           position: relative;
           padding: 2.5rem;
           overflow-y: auto;
           max-height: 90vh;
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), var(--shadow-neon);
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.1),
+            0 20px 50px rgba(0, 0, 0, 0.5),
+            var(--shadow-neon);
           animation: scale-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 

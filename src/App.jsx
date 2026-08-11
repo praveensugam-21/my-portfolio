@@ -1,3 +1,4 @@
+import AuroraBackground from './components/AuroraBackground';
 import BackgroundCanvas from './components/BackgroundCanvas';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -11,6 +12,10 @@ import Contact from './components/Contact';
 function App() {
   return (
     <>
+      {/* Ambient color-blob layer — sits behind everything so glass panels
+          have something to actually refract */}
+      <AuroraBackground />
+
       {/* Interactive Floating Neural Network Background */}
       <BackgroundCanvas />
 

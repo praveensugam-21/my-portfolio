@@ -139,11 +139,15 @@ export default function Navbar() {
 
         .navbar-scrolled {
           padding: 0.85rem 0;
-          background: rgba(5, 8, 20, 0.75);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-          box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+          background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%),
+            rgba(5, 8, 20, 0.65);
+          backdrop-filter: blur(18px) saturate(150%);
+          -webkit-backdrop-filter: blur(18px) saturate(150%);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow:
+            inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+            0 10px 30px -10px rgba(0, 0, 0, 0.5);
         }
 
         .navbar-container {
